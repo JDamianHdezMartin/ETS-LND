@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<!DOCTYPE pedido [
+    <!ELEMENT plantas (nombre)+ >
+        <!ATTLIST nombre (#PCDATA)>
+    <!ELEMENT flores (nombre, color?)>
+        <!ATTLIST nombre (#PCDATA)>
+        <!ATTLIST color (#PCDATA)>
+    <!ELEMENT utensilio (numero)>
+        <!ATTLIST numero (#PCDATA)>]>      
+<pedido>
+    <plantas>
+        <nombre> "helecho" </nombre>
+    </plantas>    
+    <flores>
+        <nombre> "rosa, gardenia" </nombre>
+        <color> "lila, rojo, blanco" </color>
+    </flores>    
+    <utensilio>
+        <numero> 4 </numero>
+    </utensilio>
+</pedido>    
