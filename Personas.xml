@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"> 
+<!-- Definimos el tipo de día como positivo y lo restringimos entre 1 y 31-->
+<xsd:simpleType name="tipoDia">
+<xsd:restriction base="xsd:positiveInteger">
+<xsd:minInclusive value="1"/>
+<xsd:maxInclusive value="31"/>
+</xsd:restriction>
+</xsd:simpleType> 
+<!-- Definimos mes para que solo deje insertar meses y no cualquier cadena de texto-->
+<xsd:simpleType name="tipoMes">
+<xsd:restriction base="xsd:string">
+<xsd:enumeration value="Enero"/>
+<xsd:enumeration value="Febrero"/>
+<xsd:enumeration value="Marzo"/>
+<xsd:enumeration value="Abril"/>
+<xsd:enumeration value="Mayo"/>
+<xsd:enumeration value="Junio"/>
+<xsd:enumeration value="Julio"/>
+<xsd:enumeration value="Agosto"/>
+<xsd:enumeration value="Septiembre"/>
+<xsd:enumeration value="Octubre"/>
+<xsd:enumeration value="Noviembre"/>
+<xsd:enumeration value="Diciembre"/>
+</xsd:restriction>
+</xsd:simpleType> 
+<!-- El año solo puede ser entre 1900 y 2011 según las instrucciones del ejerecicio-->
+<xsd:simpleType name="tipoAnyo">
+<xsd:restriction base="xsd:positiveInteger">
+<xsd:minInclusive value="1900"/>
+<xsd:maxInclusive value="2011"/>
+</xsd:restriction>
+</xsd:simpleType> 
+<!-- Definimos nombre como máximo con 50 caracteres según las intrucciones del ejercicio-->
+<xsd:simpleType name="tipoNombre">
+<xsd:restriction base="xsd:string">
+<xsd:maxLength value="50"/>
+</xsd:restriction>
+</xsd:simpleType> 
+<!-- El código postal tiene que ser un valor numérico de 5 caracteres-->
+<xsd:simpleType name="tipoCodPostal">
+<xsd:restriction base="xsd:positiveInteger">
+<xsd:totalDigits value="5"/>
+</xsd:restriction>
+</xsd:simpleType>
+<!-- Asignamos cada elemento con su tipo y aprovechamos tipoNombre para definir a todas las cadenas de texto posibles, no vamos a definir 5 veces si podemos reciclar una-->
+<xsd:element name="nombre" type="tipoNombre"/>
+<xsd:element name="apellidos" type="tipoNombre"/>
+<xsd:element name="calle" type="tipoNombre"/>
+<xsd:element name="poblacion" type="tipoNombre"/>
+<xsd:element name="provincia" type="tipoNombre"/>
+<xsd:element name="varon"/>
+<xsd:element name="hembra"/>
+<xsd:element name="cpostal" type="tipoCodPostal"/>
+<!-- Damos a nacimiento los elementos necesarios-->
+<xsd:element name="nacimiento">
+<xsd:complexType>
+<xsd:simpleContent>
+<xsd:extension base="xsd:string">
+<xsd:attribute name="dia" type="tipoDia"/>
+<xsd:attribute name="mes" type="tipoMes"/>
+<xsd:attribute name="anyo" type="tipoAnyo"/> 
+</xsd:extension>
+</xsd:simpleContent>
+</xsd:complexType>
+</xsd:element> 
+<!-- Definimos direccion para que sea necesario rellenarla con los campos correspoondientes-->
+<xsd:element name="direccion">
+<xsd:complexType>
+<xsd:sequence>
+<xsd:element name="calle"/>
+<xsd:element name="poblacion"/>
+<xsd:element name="provincia"/>
+<xsd:element name="cpostal"/>
+</xsd:sequence>
+</xsd:complexType>
+</xsd:element> 
+<!-- Definimos personas para que se le introduzcan los campos requeridos-->
+<xsd:element name="personas">
+<xsd:complexType>
+<xsd:sequence>
+<xsd:element name="persona"/>
+<xsd:element name="nombre"/>
+<xsd:element name="nacimiento"/>
+<xsd:minInclusive value="1"/>
+<xsd:maxInclusive value="31"/>
+<!-- Definimos el género para que tenga que elegir entre varón u hembra-->
+<xsd:choice>
+<xsd:element name="varon"/>
+<xsd:element name="hembra"/>
+</xsd:choice> 
+</xsd:sequence>
+</xsd:complexType>
+</xsd:element>  
+</xsd:schema>
+<!-- Montamos el xml junto con el xsd, aunque me salta un error que no sé resolver-->
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"> 
+<xsd:element name="personas" type="tipoPersonas"/>
+   <persona>
+      <nombre>Juan Pardo</nombre>
+      <nacimiento dia="10" mes="Abril" anyo="1982"/>
+      <direccion>
+         <calle>Caoba, 1</calle>
+         <poblacion>Madrid</poblacion>
+         <provincia>Madrid</provincia>
+         <cpostal>28005</cpostal>
+      </direccion>
+      <varon />
+   </persona>
+   <persona>
+      <nombre>María López</nombre>
+      <direccion>
+         <calle>Roncato, 1</calle>
+         <poblacion>Illescas</poblacion>
+         <provincia>Toledo</provincia>
+         <cpostal>45200</cpostal>
+      </direccion>
+      <direccion>
+         <calle>Paseo de la Esperanza, 15 - 1º A</calle>
+         <poblacion>Madrid</poblacion>
+         <provincia>Madrid</provincia>
+         <cpostal>28005</cpostal>
+      </direccion>
+      <hembra />
+   </persona>
+   </personas>
+</xsd:schema>
