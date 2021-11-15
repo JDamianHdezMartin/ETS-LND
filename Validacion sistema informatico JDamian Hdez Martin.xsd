@@ -1,0 +1,71 @@
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+<xsd:element name="listacomponentes" type="tLista"/>
+<xsd:complexType name="tLista">
+<xsd:complexContent>
+<xsd:restriction base="xsd:anyType">
+<xsd:sequence>
+<xsd:element name="componente" type="tComponente" maxOccurs="unbounded"/>
+</xsd:sequence>
+</xsd:restriction>
+</xsd:complexContent>
+</xsd:complexType>
+<xsd:complexType name="tComponente">
+<xsd:complexContent>
+<xsd:restriction base="xsd:anyType">
+<xsd:choice>
+<xsd:element name="tarjetagrafica" type="tTarjeta"/>
+<xsd:element name="monitor" type="tMonitor"/>
+</xsd:choice>
+<xsd:attribute name="codigo" type="tCodigo"/>
+</xsd:restriction>
+</xsd:complexContent>
+</xsd:complexType>
+<xsd:simpleType name="tCodigo">
+<xsd:restriction base="xsd:string">
+<xsd:pattern value="[0-9]{6}"/>
+</xsd:restriction>
+</xsd:simpleType>
+<xsd:complexType name="tTarjeta">
+<xsd:complexContent>
+<xsd:restriction base="xsd:anyType">
+<xsd:sequence>
+<xsd:element name="memoria" type="tMemoria"/>
+<xsd:element name="precio" type="tPrecio"/>
+</xsd:sequence>
+</xsd:restriction>
+</xsd:complexContent>
+</xsd:complexType>
+<xsd:simpleType name="tMemoria">
+<xsd:restriction base="xsd:string">
+<xsd:pattern value="[0-100]+[GT]B"/>
+</xsd:restriction>
+</xsd:simpleType>
+<xsd:simpleType name="tPrecioRestringido">
+<xsd:restriction base="xsd:decimal">
+<xsd:minInclusive value="0"/>
+</xsd:restriction>
+</xsd:simpleType>
+<xsd:complexType name="tPrecio">
+<xsd:simpleContent>
+<xsd:extension base="tPrecioRestringido">
+<xsd:attribute name="moneda" type="tMoneda"/>
+</xsd:extension>
+</xsd:simpleContent>
+</xsd:complexType>
+<xsd:simpleType name="tMoneda">
+<xsd:restriction base="xsd:string">
+<xsd:enumeration value="euros"/>
+<xsd:enumeration value="dolares"/>
+</xsd:restriction>
+</xsd:simpleType>
+<xsd:complexType name="tMonitor">
+<xsd:complexContent>
+<xsd:restriction base="xsd:anyType">
+<xsd:sequence>
+<xsd:element name="tamanio" type="xsd:integer"/>
+<xsd:element name="precio"  type="tPrecio"/>
+</xsd:sequence>
+</xsd:restriction>
+</xsd:complexContent>
+</xsd:complexType>
+</xsd:schema>
